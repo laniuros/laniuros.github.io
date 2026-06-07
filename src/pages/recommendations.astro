@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import RecommendationCard from "@components/RecommendationCard.astro";
+
+const items = await getCollection("recommendations");
+
+const sections = [
+  { category: "game", label: "Games" },
+  { category: "book", label: "Books" },
+  { category: "film", label: "Films" },
+] as const;
+---
+
+<BaseLayout title="Recommendations | Zhongxing Ma">
+  <section class="page-intro">
+    <span class="eyebrow">Rec</span>
+    <h1>Recommendations</h1>
+    <p>Games, books, and films I recommend.</p>
+  </section>
+  <section class="recommendation-stack">
+    {
+      sections.map((section) => {
+        const sectionItems = items.filter((item) => item.data.category === section.category);
+
+        return (
+          <section class="recommendation-section">
+            <h2 class="recommendation-heading">{section.label}</h2>
+            <div class="pick-list">
+              {sectionItems.map((item) => (
+                <RecommendationCard title={item.data.title} note={item.data.note} />
+              ))}
+            </div>
+          </section>
+        );
+      })
+    }
+  </section>
+</BaseLayout>

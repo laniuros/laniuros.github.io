@@ -1,0 +1,78 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import AvatarSlot from "@components/AvatarSlot.astro";
+import VisitGlobe from "@components/VisitGlobe.astro";
+import { belwyn, profile } from "@data/site";
+---
+
+<BaseLayout title="Zhongxing Ma | Academic Terminal">
+  <section class="hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Focus on Artificial Intelligence</span>
+      <h1>{profile.name}</h1>
+      <p class="hero-lede">
+        with his friend <span class="belwyn-name">Belwyn</span>.
+      </p>
+      <div class="hero-summary" aria-label="Brief biography">
+        <div class="bio-row">
+          <span>Now</span>
+          <div class="bio-items">
+            <article>
+              <strong>2026 / Unknown</strong>
+              <small>Beijing, China · Freelance</small>
+              <p>Researching AI agents.</p>
+            </article>
+          </div>
+        </div>
+        <div class="bio-row">
+          <span>Before</span>
+          <div class="bio-items">
+            <article>
+              <strong>2025 / Booming Tech</strong>
+              <small>Hangzhou, China · AI Engineer</small>
+              <p>Building RAG Applications.</p>
+            </article>
+            <article>
+              <strong>2022-2025 / Baidu Apollo L4</strong>
+              <small>Beijing, China · Autonomous driving Engineer</small>
+              <p>Online Map Perception Models for Autonomous Driving.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a class="button primary" href="/publications/">View publications</a>
+        <a class="button" href="/belwyn/">Enter&nbsp;<span class="belwyn-name">Belwyn</span>&nbsp;space</a>
+      </div>
+    </div>
+    <div class="hero-panel" aria-label="Avatar placeholders">
+      <AvatarSlot label="Zhongxing" subtitle="Pixel portrait pending" />
+      <AvatarSlot label={belwyn.name} subtitle={belwyn.status} variant="ai" src="/belwyn.png" />
+    </div>
+  </section>
+
+  <section class="signal-panel focus-strip">
+    <div class="focus-rows">
+      <div class="focus-row">
+        <div class="cluster-heading">
+          <span>01</span>
+          <h3>Current experience</h3>
+        </div>
+        <div class="tag-row">
+          {profile.research.map((item) => <span>{item}</span>)}
+        </div>
+      </div>
+      <div class="focus-row">
+        <div class="cluster-heading">
+          <span>02</span>
+          <h3>Current interests</h3>
+        </div>
+        <div class="tag-row">
+          {profile.interests.map((interest) => <span>{interest}</span>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <VisitGlobe />
+</BaseLayout>

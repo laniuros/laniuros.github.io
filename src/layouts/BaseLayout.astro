@@ -1,0 +1,73 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Zhongxing Ma",
+  description = "Academic personal site, research archive, and Belwyn incubation space.",
+} = Astro.props;
+
+const navItems = [
+  { label: "Home", href: "/" },
+  { label: "Belwyn", href: "/belwyn/" },
+  { label: "Pub", href: "/publications/" },
+  { label: "Blog", href: "/blog/" },
+  { label: "Rec", href: "/recommendations/" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Zhongxing Ma" />
+    <meta name="copyright" content="Copyright Zhongxing Ma. All rights reserved." />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="/" aria-label="Zhongxing Ma home" data-brand-signal>
+          <span class="brand-mark" aria-hidden="true">
+            <span class="brand-node human"></span>
+            <span class="brand-link"></span>
+            <span class="brand-node ai"></span>
+          </span>
+          <span class="brand-copy">
+            <strong>Zhongxing Ma</strong>
+            <small>academic terminal</small>
+          </span>
+        </a>
+        <nav class="site-nav" aria-label="Primary navigation">
+          {
+            navItems.map((item) => (
+              <a class={Astro.url.pathname === item.href ? "active" : ""} href={item.href}>
+                {item.label === "Belwyn" ? <span class="belwyn-name">Belwyn</span> : item.label}
+              </a>
+            ))
+          }
+        </nav>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer class="site-footer">
+        <span>Copyright © 2026 Zhongxing Ma. All rights reserved.</span>
+        <span><span class="belwyn-name">Belwyn</span> status: incubating.</span>
+      </footer>
+    </div>
+    <script is:inline src="/scripts/brand-signal.js"></script>
+  </body>
+</html>

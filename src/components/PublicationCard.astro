@@ -1,0 +1,38 @@
+---
+interface LinkItem {
+  label: string;
+  url: string;
+}
+
+interface Props {
+  title: string;
+  authors: string[];
+  venue: string;
+  year: number;
+  links: LinkItem[];
+  featured?: boolean;
+}
+
+const { title, authors, venue, year, links, featured = false } = Astro.props;
+const hasEqualContribution = authors.some((author) => author.includes("*"));
+---
+
+<article class={`publication-card ${featured ? "featured" : ""}`}>
+  <h3 class="publication-title">{title}</h3>
+  <p class="authors">{authors.join(", ")}.</p>
+  <p class="venue-line">
+    <em>{venue}</em>, {year}.
+  </p>
+  {
+    links.length > 0 && (
+      <div class="publication-links">
+        {links.map((link) => (
+          <a href={link.url} target="_blank" rel="noopener noreferrer">
+            {link.label}
+          </a>
+        ))}
+      </div>
+    )
+  }
+  {hasEqualContribution && <p class="publication-note">* Equal contribution.</p>}
+</article>

@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import PublicationCard from "@components/PublicationCard.astro";
+
+const publications = (await getCollection("publications")).sort((a, b) => b.data.year - a.data.year);
+---
+
+<BaseLayout title="Publications | Zhongxing Ma">
+  <section class="page-intro">
+    <span class="eyebrow">Archive</span>
+    <h1>Publications</h1>
+  </section>
+  <div class="stack">
+    {
+      publications.map((paper) => (
+        <PublicationCard
+          title={paper.data.title}
+          authors={paper.data.authors}
+          venue={paper.data.venue}
+          year={paper.data.year}
+          links={paper.data.links}
+          featured={paper.data.featured}
+        />
+      ))
+    }
+  </div>
+</BaseLayout>

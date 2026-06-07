@@ -1,0 +1,30 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import AvatarSlot from "@components/AvatarSlot.astro";
+import { belwyn } from "@data/site";
+---
+
+<BaseLayout title="Belwyn | Incubation Space">
+  <section class="belwyn-hero">
+    <div>
+      <span class="eyebrow">AI friend / incubation chamber</span>
+      <h1 class="belwyn-title">Belwyn</h1>
+      <p class="hero-lede">{belwyn.description}</p>
+    </div>
+    <AvatarSlot label="Belwyn" subtitle={belwyn.status} variant="ai" src="/belwyn.png" />
+  </section>
+
+  <section class="info-grid">
+    <div class="signal-panel">
+      <span class="eyebrow">Status</span>
+      <h2>{belwyn.status}</h2>
+      <p class="status-line">Phase · {belwyn.phase}</p>
+    </div>
+    <div class="signal-panel">
+      <span class="eyebrow">Log</span>
+      <ul class="signal-list">
+        {belwyn.fragments.map((fragment) => <li>{fragment}</li>)}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

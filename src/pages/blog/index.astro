@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+const posts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const toPostSlug = (id: string) => id.replace(/\.(md|mdx)$/i, "");
+---
+
+<BaseLayout title="Blog | Zhongxing Ma">
+  <section class="page-intro">
+    <span class="eyebrow">Notebook</span>
+    <h1>Blog</h1>
+  </section>
+  <div class="post-list">
+    {
+      posts.map((post) => (
+        <a class="post-row" href={`/blog/${toPostSlug(post.id)}/`}>
+          <span>{post.data.date.toLocaleDateString("en", { year: "numeric", month: "short", day: "numeric" })}</span>
+          <strong>{post.data.title}</strong>
+          <p>{post.data.excerpt}</p>
+        </a>
+      ))
+    }
+  </div>
+</BaseLayout>

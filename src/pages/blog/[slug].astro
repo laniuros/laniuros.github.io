@@ -1,0 +1,25 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = (await getCollection("blog")).filter((post) => !post.data.draft);
+  return posts.map((post) => ({ params: { slug: post.id.replace(/\.(md|mdx)$/i, "") }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout title={`${post.data.title} | Zhongxing Ma`}>
+  <article class="article-page">
+    <header>
+      <span class="eyebrow">{post.data.date.toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric" })}</span>
+      <h1>{post.data.title}</h1>
+      <p>{post.data.excerpt}</p>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,14 @@
+---
+interface Props {
+  title: string;
+  note: string;
+}
+
+const { title, note } = Astro.props;
+---
+
+<p class="pick-line">
+  <strong class="pick-title">{title}</strong>
+  <span class="pick-sep" aria-hidden="true">—</span>
+  <span class="pick-note">{note}</span>
+</p>

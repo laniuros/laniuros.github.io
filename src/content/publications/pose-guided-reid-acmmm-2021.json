@@ -1,0 +1,13 @@
+{
+  "title": "Pose-guided inter-and intra-part relational transformer for occluded person re-identification",
+  "authors": ["Zhongxing Ma", "Yifan Zhao", "Jia Li"],
+  "venue": "ACM International Conference on Multimedia",
+  "year": 2021,
+  "links": [
+    {
+      "label": "ACM Digital Library",
+      "url": "https://dl.acm.org/doi/pdf/10.1145/3474085.3475283"
+    }
+  ],
+  "featured": false
+}
